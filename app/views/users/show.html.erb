@@ -43,13 +43,16 @@
 	<% if current_user.to_s != @user.login.to_s %>
 		<% if current_user.sent_invitations.first(:conditions => ["friend_id= ?", @user.id]) %>
 		<% else %>
-			<% if current_user.friends.first(:conditions => ["friend_id= ?", @user.id]) %>
-			<% else %>
-				<h2>
-					<%= link_to "Dodaj do znajomych", '/friends/add/'+@user.id.to_s %>
-				</h2>
-			<% end %>	
-		<% end %>
+				<% if current_user.received_invitations.first(:conditions => ["friend_id= ?", @user.id]) %>
+				<% else %>
+						<% if current_user.friends.first(:conditions => ["friend_id= ?", @user.id]) %>
+						<% else %>
+						<h2>
+								<%= link_to "Dodaj do znajomych", '/friends/add/'+@user.id.to_s %>
+						</h2>
+						<% end %>	
+				<% end %>	
+		<% end %>	
 	<% end %>
 <% end %>
 	

@@ -1,0 +1,17 @@
+<h3>Znajomi</h3>
+<% if @user.friends.count > 0 %>				
+		<ul>			
+				<% @user.friends.each do |f| %>	
+					<li>
+					<%= link_to User.find(f.friend_id).login, user_path(f.friend_id) %>
+					<% if current_user.to_s == @user.login.to_s %>
+						<%= link_to "Usun", '/friends/delete/'+f.friend_id.to_s %>
+			  	<% end %>
+			  	</li>
+				<% end %>   
+			</ul>		
+	<% else %>
+	<p>
+			Brak znajomych!
+	</p>
+<% end %>

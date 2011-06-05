@@ -1,0 +1,17 @@
+<h3>Komentarze</h3>
+<% if @user.comments.count > 0 %>
+  <ul>
+    <% @comments.each do |comment| %>
+      <li>
+        <%= link_to comment.user, comment.user %> napisał: "<%= comment.body %>" 
+        <% if current_user.to_s == @user.login.to_s %>
+						<%= link_to "Usun", '/comments/delete/'+comment.id.to_s %>
+			  <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+	<p>
+		Brak komentarzy!
+	</p>
+<% end %>		  

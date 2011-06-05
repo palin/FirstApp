@@ -1,0 +1,83 @@
+<% title @user.login %>
+<% if current_user != nil %>
+<% if current_user.to_s == @user.login.to_s %>
+	<% if @user.received_invitations.count > 0 %>
+		<p>
+			<strong>Nowe zaproszenia do znajomych:</strong>
+			<ul>	
+			<% @user.received_invitations.each do |invitation|  %>			
+				<li>
+					<strong><%= User.find(invitation.friend_id).login %></strong>
+					<%= link_to "Akceptuj", '/friends/accept/'+invitation.friend_id.to_s %>
+					<%= link_to "Odrzuć", '/friends/deny/'+invitation.friend_id.to_s %>
+				</li>
+			<% end %>	
+			</ul>
+		</p>
+		<% else %>
+		<p>
+			Brak zaproszeń od znajomych!
+		</p>	
+		<% end %>
+
+<% if current_user.to_s == @user.login.to_s %>
+	<% if @user.sent_invitations.count > 0 %>
+		<p>
+			<strong>Wysłane zaproszenia:</strong>
+			<ul>	
+			<% @user.sent_invitations.each do |invitation|  %>			
+				<li>
+					<strong><%= User.find(invitation.friend_id).login %></strong>
+				</li>
+			<% end %>	
+			</ul>
+		</p>
+	<% else %>
+		<p>
+			Nie wysłałeś ani jednego zaproszenia!
+		</p>
+	<% end %>
+<% end %>
+<% end %>
+
+	<% if current_user.to_s != @user.login.to_s %>
+		<% if current_user.sent_invitations.first(:conditions => ["friend_id= ?", @user.id]) %>
+		<% else %>
+			<% if current_user.friends.first(:conditions => ["friend_id= ?", @user.id]) %>
+			<% else %>
+				<h2>
+					<%= link_to "Dodaj do znajomych", '/friends/add/'+@user.id.to_s %>
+				</h2>
+			<% end %>	
+		<% end %>
+	<% end %>
+<% end %>
+	
+<p>
+  <strong>Login:</strong>
+  <%= @user.login %>
+</p>
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+
+
+<div id="friends">	
+	<%= render 'friends/show_friends' %>	
+</div>
+
+
+<div id="comments">
+	<%= render 'comments/show_comments' %>
+</div>
+
+<% if current_user != nil %>
+<%= render 'comments/form' %>
+<% end %>
+<p>
+  <%= link_to "Edit", edit_user_path(@user) %> |
+  <%= link_to "Destroy", @user, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", users_path %>
+</p>

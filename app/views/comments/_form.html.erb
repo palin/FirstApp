@@ -1,0 +1,12 @@
+<%= form_for @comment do |f| %>
+  <h3> Dodaj: </h3>
+  <%= f.error_messages %>
+  <%= f.hidden_field :receiver_id %>
+  <p>
+    <%= f.label :body %><br />
+    <%= f.text_field :body, :size => 50 %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>

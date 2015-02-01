@@ -1,5 +1,5 @@
 <% title @user.login %>
-<% if current_user != nil %>
+<% if current_user.present? %>
 	<% if current_user.to_s == @user.login.to_s %>
 		<% if @user.received_invitations.count > 0 %>
 			<p>
@@ -72,7 +72,7 @@
 	<%= render 'comments/show_comments' %>
 </div>
 
-<% if current_user != nil %>
+<% if current_user.present? %>
 <%= render 'comments/form' %>
 <% end %>
 <p>

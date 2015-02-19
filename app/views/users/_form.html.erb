@@ -1,9 +1,11 @@
 <%= form_for @user do |f| %>
   <%= f.error_messages %>
+
   <p>
     <%= f.label :login %><br />
     <%= f.text_field :login %>
   </p>
+
   <p>
     <%= f.label :email %><br />
     <%= f.text_field :email %>
@@ -18,5 +20,6 @@
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation %>
   </p>
+
   <p><%= f.submit %></p>
 <% end %>

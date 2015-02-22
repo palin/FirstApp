@@ -12,12 +12,13 @@
       <% flash.each do |name, msg| %>
         <%= content_tag :div, msg, :id => "flash_#{name}" %>
       <% end %>
+
       <% if current_user.present? %>
         <div id="logged_in">
           Zalogowany jako <%= current_user.login  %> - <%= link_to("wyloguj", user_session_path, :method => :delete)%>
-          
         </div>
       <% end %>
+
       <%= content_tag :h1, yield(:title) if show_title? %>
       <%= yield %>
     </div>
